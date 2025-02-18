@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>연립방정식 빈출(1)</title>
+  <!-- MathJax 라이브러리 로드 -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+  <style>
+    body {
+      background-color: #fff;
+      color: #000;
+      font-family: sans-serif;
+      margin: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+    .question-container {
+      margin-top: 20px;
+      border: 1px solid #000;
+      padding: 15px;
+    }
+    .choice-container {
+      margin-top: 10px;
+    }
+    .energy-bar-container {
+      width: 100%;
+      background-color: #000;
+      height: 10px;
+      margin: 10px 0;
+      position: relative;
+    }
+    .energy-bar {
+      background-color: #fff;
+      height: 10px;
+      width: 100%;
+      transition: width 1s linear;
+    }
+    .score-info {
+      margin: 10px 0;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .end-screen {
+      margin-top: 20px;
+      border: 1px solid #000;
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+<h1>연립방정식 빈출(1)</h1>
+
+<!-- MathJax 스크립트: 페이지 로드 후 수식 렌더링에 사용 -->
+
+<!-- 이름 입력, 난이도 선택 화면 -->
+<div id="start-screen">
+  <label for="userName">이름: </label>
+  <input type="text" id="userName" />
+  <div style="margin-top: 10px;">
+    난이도 선택:
+    <label><input type="radio" name="difficulty" value="top" /> 최상(20초)</label>
+    <label><input type="radio" name="difficulty" value="high" /> 상(30초)</label>
+    <label><input type="radio" name="difficulty" value="mid" /> 중(40초)</label>
+    <label><input type="radio" name="difficulty" value="low" /> 하(시간제한 없음)</label>
+  </div>
+  <button onclick="startGame()">게임 시작</button>
+</div>
+
+<!-- 문제 표시 영역 -->
+<div id="quiz-screen" class="hidden">
+  <div class="score-info">
+    <span id="score-display">점수: 0</span> |
+    <span id="chance-display">남은 기회: 3</span> |
+    <span id="total-time-display">총 경과 시간: 0초</span>
+  </div>
+  <div id="energy-bar-container" class="energy-bar-container hidden">
+    <div id="energy-bar" class="energy-bar"></div>
+  </div>
+  <div id="question-area" class="question-container"></div>
+  <button id="submit-button" disabled>제출</button>
+  <button id="next-button" class="hidden">다음 문제</button>
+</div>
+
+<!-- 종료 화면 -->
+<div id="end-screen" class="hidden end-screen">
+  <h2>게임 종료</h2>
+  <p id="final-score"></p>
+  <button id="send-score-button">점수전송</button>
+  <div id="response" style="white-space:pre;"></div>
+</div>
+
+<script>
+// 7문제. 각 문항은 다음 구조:
+// {
+//   question: "질문텍스트(LaTeX 포함 가능)",
+//   choices: ["보기1","보기2","보기3","보기4","보기5"],
+//   correctIndex: 정답 인덱스(0~4)
+// }
+const questionsData = [
+  // Q1
+  {
+    question: `다음 \\(\\text{<보기>}\\) 중에서 미지수가 2개인 일차방정식은 모두 몇 개인가?
+    <br>
+    (1) \\(y^2 + 2x = y^2 - 3y\\)<br>
+    (2) \\(3p - 4q + 5 = 0\\)<br>
+    (3) \\(2x^2 - x + 1 = x\\)<br>
+    (4) \\(5m + 2n - 1 = 0\\)<br>
+    (5) \\(4u^2 - 3v + 2 = 4u^2 - 1\\)`,
+    choices: [
+      "1개",
+      "2개",
+      "3개",
+      "4개",
+      "5개"
+    ],
+    correctIndex: 1 // "2개"
+  },
+  // Q2
+  {
+    question: `다음 중 \\(b x - 4y + 2 = 3x + 7y - 1\\) 이 미지수가 2개인 일차방정식이 되도록 하는 상수 \\(b\\)의 값이 <strong>아닌</strong> 것은?`,
+    choices: [
+      "\\(1\\)",
+      "\\(2\\)",
+      "\\(3\\)",
+      "\\(4\\)",
+      "\\(5\\)"
+    ],
+    correctIndex: 2 // 3이 되면 x계수가 소멸->미지수 2개X
+  },
+  // Q3
+  {
+    question: `\\(x, y\\)에 대한 일차방정식 \\(p x + y = 20\\)의 해가 \\((2,14), (4,q)\\)일 때, \\(p + q\\)의 값은?`,
+    choices: [
+      "\\(7\\)",
+      "\\(9\\)",
+      "\\(11\\)",
+      "\\(13\\)",
+      "\\(15\\)"
+    ],
+    correctIndex: 2 // 11
+  },
+  // Q4
+  {
+    question: `\\(x, y\\)가 자연수일 때, 일차방정식 \\(4x + 3y = 18\\)의 해는 \\((a,b)\\)이다. 이때 \\(a + b\\)의 값은?`,
+    choices: [
+      "\\(2\\)",
+      "\\(3\\)",
+      "\\(4\\)",
+      "\\(5\\)",
+      "\\(6\\)"
+    ],
+    correctIndex: 3 // 5
+  },
+  // Q5
+  {
+    question: `A가 1시간 동안 조깅과 줄넘기를 하였다. 10분 동안 조깅으로 소모되는 열량은 60kcal, 10분 동안 줄넘기로 소모되는 열량은 70kcal이다. A가 조깅과 줄넘기로 소모한 열량이 420kcal라고 할 때, A가 조깅을 한 시간을 \\(x\\)분, 줄넘기를 한 시간을 \\(y\\)분이라 할 때, 세운 방정식은?`,
+    choices: [
+      "\\(\\begin{cases} x + y = 60 \\\\ 6x + 7y = 420 \\end{cases}\\)",
+      "\\(\\begin{cases} x + y = 60 \\\\ 6x - 7y = 420 \\end{cases}\\)",
+      "\\(\\begin{cases} x + y = 70 \\\\ 6x + 7y = 420 \\end{cases}\\)",
+      "\\(\\begin{cases} x + y = 60 \\\\ 6x + 7y = 350 \\end{cases}\\)",
+      "\\(\\begin{cases} x + y = 60 \\\\ 7x + 6y = 420 \\end{cases}\\)"
+    ],
+    correctIndex: 0
+  },
+  // Q6
+  {
+    question: `다음 중에서 미지수가 2개인 일차방정식이 되지 <strong>않는</strong> 것은?<br>
+    (1) \\(3u + 2v = 7\\)<br>
+    (2) \\(x^2 + y = 5\\)<br>
+    (3) \\(5a - 3b = 2\\)<br>
+    (4) \\(2p + 9q = 0\\)<br>
+    (5) \\(7m + n = 10\\)`,
+    choices: [
+      "(1)",
+      "(2)",
+      "(3)",
+      "(4)",
+      "(5)"
+    ],
+    correctIndex: 1 // x^2 + y=5 (제곱)
+  },
+  // Q7
+  {
+    question: `일차방정식 \\(5(x-1) - 2(y+3) = 0\\)을 \\(x,y\\)에 대한 표준형으로 나타낸 것은?`,
+    choices: [
+      "\\(5x - 2y - 11 = 0\\)",
+      "\\(5x + 2y - 11 = 0\\)",
+      "\\(5x - 2y + 11 = 0\\)",
+      "\\(5x + 2y + 11 = 0\\)",
+      "\\(5x - 2y = 11\\)"
+    ],
+    correctIndex: 0 // 5x - 2y - 11=0
+  }
+];
+
+// 전체 게임 시간(초)
+let totalTime = 0;
+// 타이머를 갱신하기 위한 변수
+let totalTimerInterval = null;
+// 문제별 제한시간(초)
+let timeLimit = 0;
+// 남은 기회
+let chances = 3;
+// 현재 점수
+let score = 0;
+// 난이도별 점수
+const difficultyScores = {
+  top: 20,
+  high: 15,
+  mid: 13,
+  low: 10
+};
+// 현재 난이도
+let currentDifficulty = "low";
+// 현재 문제 인덱스(0~6까지 순회 후 랜덤)
+let currentIndex = 0;
+// 문제를 모두 1바퀴 돌았는지 여부
+let completedOneRound = false;
+
+// 에너지바 관련
+let energyBarInterval = null;
+let energyBarWidth = 100; // % 단위
+let isTimeOver = false;
+
+// 문제 순서 섞기
+let questionOrder = [];
+for(let i=0; i<questionsData.length; i++){
+  questionOrder.push(i);
+}
+shuffleArray(questionOrder);
+
+// 시작 화면에서 '게임 시작' 누르면 호출
+function startGame() {
+  const nameInput = document.getElementById("userName").value.trim();
+  if(!nameInput){
+    alert("이름을 입력하세요.");
+    return;
+  }
+  const difficultyRadios = document.getElementsByName("difficulty");
+  let selected = false;
+  for(let r of difficultyRadios){
+    if(r.checked){
+      selected = true;
+      currentDifficulty = r.value;
+      break;
+    }
+  }
+  if(!selected){
+    alert("난이도를 선택하세요.");
+    return;
+  }
+  // 난이도에 따른 문제별 시간 설정
+  switch(currentDifficulty){
+    case "top": timeLimit = 20; break;
+    case "high": timeLimit = 30; break;
+    case "mid": timeLimit = 40; break;
+    case "low": timeLimit = 0;  break; // 무제한
+  }
+  
+  // 초기화
+  score = 0;
+  chances = 3;
+  currentIndex = 0;
+  completedOneRound = false;
+  totalTime = 0;
+
+  // 전체 타이머 시작
+  if(totalTimerInterval) clearInterval(totalTimerInterval);
+  totalTimerInterval = setInterval(()=>{
+    totalTime++;
+    document.getElementById("total-time-display").textContent = `총 경과 시간: ${totalTime}초`;
+  }, 1000);
+
+  // UI 전환
+  document.getElementById("start-screen").classList.add("hidden");
+  document.getElementById("quiz-screen").classList.remove("hidden");
+  document.getElementById("chance-display").textContent = `남은 기회: ${chances}`;
+  document.getElementById("score-display").textContent = `점수: ${score}`;
+  document.getElementById("energy-bar-container").classList.add("hidden");
+  showQuestion();
+}
+
+// 문제 표시
+function showQuestion() {
+  let qIndex = 0;
+  if(!completedOneRound){
+    // 아직 1바퀴 안 돌았으면 순차적으로
+    qIndex = questionOrder[currentIndex];
+  } else {
+    // 1바퀴 돌았으면 랜덤
+    qIndex = questionOrder[Math.floor(Math.random()*questionsData.length)];
+  }
+  const questionObj = questionsData[qIndex];
+  
+  // 화면 구성
+  const questionArea = document.getElementById("question-area");
+  questionArea.innerHTML = `
+    <div>
+      ${questionObj.question}
+    </div>
+    <div class="choice-container" id="choice-container">
+    </div>
+  `;
+
+  const choiceContainer = document.getElementById("choice-container");
+  choiceContainer.innerHTML = "";
+
+  // 보기(choices)는 순서 그대로 표시 (인덱스 0~4)
+  for(let i=0; i<questionObj.choices.length; i++){
+    const choiceLabel = document.createElement("label");
+    choiceLabel.style.display = "block";
+    const radio = document.createElement("input");
+    radio.type = "radio";
+    radio.name = "choice";
+    radio.value = i; // 0~4
+    radio.onclick = ()=> {
+      // 답안 선택 시 제출 버튼 활성화
+      document.getElementById("submit-button").disabled = false;
+    };
+    choiceLabel.appendChild(radio);
+    choiceLabel.appendChild(document.createTextNode(" " + questionObj.choices[i]));
+    choiceContainer.appendChild(choiceLabel);
+  }
+
+  // 제출/다음 버튼 상태
+  document.getElementById("submit-button").disabled = true;
+  document.getElementById("next-button").classList.add("hidden");
+
+  // MathJax 렌더링
+  MathJax.typeset();
+
+  // 시간 제한(에너지바) 세팅
+  if(timeLimit > 0){
+    document.getElementById("energy-bar-container").classList.remove("hidden");
+    resetEnergyBar();
+  } else {
+    document.getElementById("energy-bar-container").classList.add("hidden");
+  }
+
+  // 제출 버튼에 클릭 핸들러(매번 새로 등록)
+  const submitBtn = document.getElementById("submit-button");
+  submitBtn.onclick = ()=>{
+    checkAnswer(qIndex);
+  };
+}
+
+// 답안 체크
+function checkAnswer(qIndex) {
+  const questionObj = questionsData[qIndex];
+  const radios = document.getElementsByName("choice");
+  let selectedIndex = -1;
+  for(let r of radios){
+    if(r.checked){
+      selectedIndex = parseInt(r.value,10);
+      break;
+    }
+  }
+  if(selectedIndex===-1){
+    alert("보기를 선택하세요.");
+    return;
+  }
+
+  // 시간 카운트 종료
+  if(energyBarInterval) clearInterval(energyBarInterval);
+
+  // 정답 비교
+  const isCorrect = (selectedIndex === questionObj.correctIndex);
+
+  if(isCorrect){
+    alert("정답입니다!");
+    score += difficultyScores[currentDifficulty];
+    document.getElementById("score-display").textContent = `점수: ${score}`;
+  } else {
+    alert(`오답입니다. 정답은 '${
+      questionObj.choices[questionObj.correctIndex]
+    }' 입니다.`);
+    chances--;
+    document.getElementById("chance-display").textContent = `남은 기회: ${chances}`;
+    if(chances<=0){
+      endGame();
+      return;
+    }
+  }
+
+  // 다음 문제 버튼 활성화
+  document.getElementById("next-button").classList.remove("hidden");
+  document.getElementById("submit-button").disabled = true;
+  // 다음 문제 버튼 클릭 시 다음 문제로 이동
+  document.getElementById("next-button").onclick = ()=>{
+    moveNextQuestion();
+  };
+}
+
+// 다음 문제
+function moveNextQuestion(){
+  if(!completedOneRound){
+    currentIndex++;
+    if(currentIndex>=questionsData.length){
+      completedOneRound = true;
+    }
+  }
+  showQuestion();
+}
+
+// 에너지바 초기화
+function resetEnergyBar(){
+  if(energyBarInterval) clearInterval(energyBarInterval);
+  energyBarWidth = 100;
+  document.getElementById("energy-bar").style.width = energyBarWidth + "%";
+  isTimeOver = false;
+
+  let remainingTime = timeLimit;
+  const step = 100/timeLimit; // 초당 소모 퍼센트
+  energyBarInterval = setInterval(()=>{
+    remainingTime--;
+    energyBarWidth -= step;
+    if(energyBarWidth<0) energyBarWidth=0;
+    document.getElementById("energy-bar").style.width = energyBarWidth + "%";
+
+    if(remainingTime<=0){
+      clearInterval(energyBarInterval);
+      timeOutAction();
+    }
+  },1000);
+}
+
+// 시간초과 처리
+function timeOutAction(){
+  // 시간초과는 오답 처리
+  alert("시간 초과! 오답 처리됩니다.");
+  chances--;
+  document.getElementById("chance-display").textContent = `남은 기회: ${chances}`;
+  if(chances<=0){
+    endGame();
+    return;
+  }
+  // 정답 공개
+  let currentQIndex = (!completedOneRound) 
+      ? questionOrder[currentIndex] 
+      : questionOrder[Math.floor(Math.random()*questionsData.length)];
+  const correctAnswer = questionsData[currentQIndex].choices[questionsData[currentQIndex].correctIndex];
+  alert(`정답은 '${correctAnswer}' 입니다.`);
+
+  document.getElementById("next-button").classList.remove("hidden");
+  document.getElementById("submit-button").disabled = true;
+  // 다음 문제 버튼
+  document.getElementById("next-button").onclick = ()=>{
+    moveNextQuestion();
+  };
+}
+
+// 게임 종료
+function endGame(){
+  // 타이머 종료
+  if(totalTimerInterval) clearInterval(totalTimerInterval);
+  if(energyBarInterval) clearInterval(energyBarInterval);
+
+  // 화면 전환
+  document.getElementById("quiz-screen").classList.add("hidden");
+  document.getElementById("end-screen").classList.remove("hidden");
+  document.getElementById("final-score").textContent = `최종 점수: ${score}점`;
+}
+
+// 점수 전송
+document.getElementById("send-score-button").addEventListener("click", ()=>{
+  const nameInput = document.getElementById("userName").value.trim();
+  saveData("연립방정식 빈출(1)", nameInput, score, totalTime);
+});
+
+// ============= 유틸 함수 ============= //
+function shuffleArray(array) {
+  for(let i=array.length-1; i>0; i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+/**
+ * Cloud Function에 점수 전송
+ */
+async function saveData(game, name, score, elapsedTime) {
+  const FUNCTION_URL = "https://us-central1-record-f420d.cloudfunctions.net/report";
+
+  const requestData = {
+      game,
+      name,
+      score: parseInt(score, 10),
+      elapsedTime: parseInt(elapsedTime, 10)
+  };
+
+  try {
+      const response = await fetch(FUNCTION_URL, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestData)
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+          document.getElementById('response').innerText = 
+              `성공: ${JSON.stringify(responseData, null, 2)}`;
+      } else {
+          document.getElementById('response').innerText = 
+              `오류: ${JSON.stringify(responseData, null, 2)}`;
+      }
+  } catch (error) {
+      console.error('요청 실패:', error);
+      document.getElementById('response').innerText = 
+          `네트워크 오류: ${error.message}`;
+  }
+}
+</script>
+</body>
+</html>
