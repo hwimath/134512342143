@@ -102,7 +102,6 @@
 // - 각 (가)~(마) 중 정확히 3개만 '2개 미지수를 갖는 일차방정식'인 경우를 구성
 // - 보기: ["1개","2개","3개","4개","5개"]에서 "3개"의 인덱스는 2
 const type1 = [
-  // (1)
   {
     question: `유형1(1) <br>
     다음 \\(\\text{<보기>}\\) 중에서 미지수가 2개인 일차방정식은 모두 몇 개인가?<br><br>
@@ -114,7 +113,6 @@ const type1 = [
     choices: ["1개","2개","3개","4개","5개"],
     correctIndex: 2
   },
-  // (2) - 새로 수정
   {
     question: `유형1(2) <br>
     다음 \\(\\text{<보기>}\\) 중에서 미지수가 2개인 일차방정식은 모두 몇 개인가?<br><br>
@@ -126,7 +124,6 @@ const type1 = [
     choices: ["1개","2개","3개","4개","5개"],
     correctIndex: 2
   },
-  // (3)
   {
     question: `유형1(3) <br>
     다음 \\(\\text{<보기>}\\) 중에서 미지수가 2개인 일차방정식은 모두 몇 개인가?<br><br>
@@ -138,7 +135,6 @@ const type1 = [
     choices: ["1개","2개","3개","4개","5개"],
     correctIndex: 2
   },
-  // (4) - 새로 수정
   {
     question: `유형1(4) <br>
     다음 \\(\\text{<보기>}\\) 중에서 미지수가 2개인 일차방정식은 모두 몇 개인가?<br><br>
@@ -150,7 +146,6 @@ const type1 = [
     choices: ["1개","2개","3개","4개","5개"],
     correctIndex: 2
   },
-  // (5) - 새로 수정
   {
     question: `유형1(5) <br>
     다음 \\(\\text{<보기>}\\) 중에서 미지수가 2개인 일차방정식은 모두 몇 개인가?<br><br>
@@ -162,7 +157,6 @@ const type1 = [
     choices: ["1개","2개","3개","4개","5개"],
     correctIndex: 2
   },
-  // (6) - 새로 수정
   {
     question: `유형1(6) <br>
     다음 \\(\\text{<보기>}\\) 중에서 미지수가 2개인 일차방정식은 모두 몇 개인가?<br><br>
@@ -174,7 +168,6 @@ const type1 = [
     choices: ["1개","2개","3개","4개","5개"],
     correctIndex: 2
   },
-  // (7)
   {
     question: `유형1(7) <br>
     다음 \\(\\text{<보기>}\\) 중에서 미지수가 2개인 일차방정식은 모두 몇 개인가?<br><br>
@@ -190,156 +183,148 @@ const type1 = [
 
 // =============== 유형2 (7문제) ===============
 // "다음 중 ax - 3y + 1 = 2x + 5y - 4 가 미지수가 2개인 일차방정식이 되도록 하는 상수 a의 값이 아닌 것은?"
-// (이미 검증 완료)
-
 const type2 = [
   {
     question: `유형2(1) <br>
     다음 중 \\(a x - 3y + 1 = 2x + 5y - 4\\) 가 미지수가 2개인 일차방정식이 되도록 하는 \\(a\\)의 값이 <strong>아닌</strong> 것은?`,
     choices: ["1","2","3","4","5"],
-    correctIndex: 1 // "2"
+    correctIndex: 1
   },
   {
     question: `유형2(2) <br>
     다음 중 \\(a x + 2y - 1 = 3x + 2y + 4\\) 가 미지수가 2개인 일차방정식이 되도록 하는 \\(a\\)의 값이 <strong>아닌</strong> 것은?`,
     choices: ["1","2","3","4","5"],
-    correctIndex: 2 // "3"
+    correctIndex: 2
   },
   {
     question: `유형2(3) <br>
     다음 중 \\(a x - y + 2 = 2x - y + 1\\) 가 미지수가 2개인 일차방정식이 되도록 하는 \\(a\\)의 값이 <strong>아닌</strong> 것은?`,
     choices: ["1","2","3","4","5"],
-    correctIndex: 1 // "2"
+    correctIndex: 1
   },
   {
     question: `유형2(4) <br>
     다음 중 \\(a x + 4y + 3 = 5x + 2y + 2\\) 가 미지수가 2개인 일차방정식이 되도록 하는 \\(a\\)의 값이 <strong>아닌</strong> 것은?`,
     choices: ["1","3","4","5","6"],
-    correctIndex: 3 // "5"
+    correctIndex: 3
   },
   {
     question: `유형2(5) <br>
     다음 중 \\(a x - 2y + 2 = 4x - 2y - 3\\) 가 미지수가 2개인 일차방정식이 되도록 하는 \\(a\\)의 값이 <strong>아닌</strong> 것은?`,
     choices: ["2","3","4","5","6"],
-    correctIndex: 2 // "4"
+    correctIndex: 2
   },
   {
     question: `유형2(6) <br>
     다음 중 \\(a x + 5y - 3 = x + 5y + 1\\) 가 미지수가 2개인 일차방정식이 되도록 하는 \\(a\\)의 값이 <strong>아닌</strong> 것은?`,
     choices: ["1","2","3","4","5"],
-    correctIndex: 0 // "1"
+    correctIndex: 0
   },
   {
     question: `유형2(7) <br>
     다음 중 \\(a x - y + 5 = 3x - y + 4\\) 가 미지수가 2개인 일차방정식이 되도록 하는 \\(a\\)의 값이 <strong>아닌</strong> 것은?`,
     choices: ["1","2","3","4","5"],
-    correctIndex: 2 // "3"
+    correctIndex: 2
   }
 ];
 
 // =============== 유형3 (7문제) ===============
 // "x, y에 대한 일차방정식 a x + y = C 의 해가 (x1, y1), (x2, y2)일 때, a+b=?"
-// (이미 검증 완료)
-
 const type3 = [
   {
     question: `유형3(1) <br>
     \\(x, y\\)에 대한 일차방정식 \\(a x + y = 15\\)의 해가 \\((2,9), (3,b)\\)일 때, \\(a + b\\)의 값은?`,
     choices: ["7","8","9","10","11"],
-    correctIndex: 2 // 9
+    correctIndex: 2
   },
   {
     question: `유형3(2) <br>
     \\(x, y\\)에 대한 일차방정식 \\(a x + y = 12\\)의 해가 \\((1,10), (2,b)\\)일 때, \\(a + b\\)의 값은?`,
     choices: ["8","9","10","11","12"],
-    correctIndex: 2 // 10
+    correctIndex: 2
   },
   {
     question: `유형3(3) <br>
     \\(x, y\\)에 대한 일차방정식 \\(a x + y = 20\\)의 해가 \\((2,14), (4,b)\\)일 때, \\(a + b\\)의 값은?`,
     choices: ["7","9","11","13","15"],
-    correctIndex: 2 // 11
+    correctIndex: 2
   },
   {
     question: `유형3(4) <br>
     \\(x, y\\)에 대한 일차방정식 \\(a x + y = 10\\)의 해가 \\((3,1), (4,b)\\)일 때, \\(a + b\\)의 값은?`,
     choices: ["-1","0","1","2","3"],
-    correctIndex: 2 // 1
+    correctIndex: 2
   },
   {
     question: `유형3(5) <br>
     \\(x, y\\)에 대한 일차방정식 \\(a x + y = 9\\)의 해가 \\((1,5), (2,b)\\)일 때, \\(a + b\\)의 값은?`,
     choices: ["3","4","5","6","7"],
-    correctIndex: 2 // 5
+    correctIndex: 2
   },
   {
     question: `유형3(6) <br>
     \\(x, y\\)에 대한 일차방정식 \\(a x + y = 16\\)의 해가 \\((4,0), (5,b)\\)일 때, \\(a + b\\)의 값은?`,
     choices: ["-2","-1","0","1","2"],
-    correctIndex: 2 // 0
+    correctIndex: 2
   },
   {
     question: `유형3(7) <br>
     \\(x, y\\)에 대한 일차방정식 \\(a x + y = 8\\)의 해가 \\((2,2), (3,b)\\)일 때, \\(a + b\\)의 값은?`,
     choices: ["0","1","2","3","4"],
-    correctIndex: 2 // 2
+    correctIndex: 2
   }
 ];
 
 // =============== 유형4 (7문제) ===============
 // "x, y가 자연수일 때, 일차방정식 ... 의 해 (a, b). 이때 a+b 값은?"
-// (이미 검증 완료)
-
 const type4 = [
   {
     question: `유형4(1) <br>
     \\(x, y\\)가 자연수일 때, 일차방정식 \\(3x + 2y = 12\\)의 해는 \\((a,b)\\). 이때 \\(a + b\\)는?`,
     choices: ["2","3","4","5","6"],
-    correctIndex: 3 // 5
+    correctIndex: 3
   },
   {
     question: `유형4(2) <br>
     \\(x, y\\)가 자연수일 때, 일차방정식 \\(5x + 2y = 14\\)의 해는 \\((a,b)\\). 이때 \\(a + b\\)는?`,
     choices: ["2","3","4","5","6"],
-    correctIndex: 2 // 4
+    correctIndex: 2
   },
   {
     question: `유형4(3) <br>
     \\(x, y\\)가 자연수일 때, 일차방정식 \\(3x + 5y = 21\\)의 해는 \\((a,b)\\). 이때 \\(a + b\\)는?`,
     choices: ["3","4","5","6","7"],
-    correctIndex: 2 // 5
+    correctIndex: 2
   },
   {
     question: `유형4(4) <br>
     \\(x, y\\)가 자연수일 때, 일차방정식 \\(4x + 3y = 18\\)의 해는 \\((a,b)\\). 이때 \\(a + b\\)는?`,
     choices: ["2","3","4","5","6"],
-    correctIndex: 3 // 5
+    correctIndex: 3
   },
   {
     question: `유형4(5) <br>
     \\(x, y\\)가 자연수일 때, 일차방정식 \\(7x + 5y = 40\\)의 해는 \\((a,b)\\). 이때 \\(a + b\\)는?`,
     choices: ["4","5","6","7","8"],
-    correctIndex: 2 // 6
+    correctIndex: 2
   },
   {
     question: `유형4(6) <br>
     \\(x, y\\)가 자연수일 때, 일차방정식 \\(8x + 3y = 27\\)의 해는 \\((a,b)\\). 이때 \\(a + b\\)는?`,
     choices: ["2","3","4","5","6"],
-    correctIndex: 2 // 4
+    correctIndex: 2
   },
   {
     question: `유형4(7) <br>
     \\(x, y\\)가 자연수일 때, 일차방정식 \\(6x + 5y = 35\\)의 해는 \\((a,b)\\). 이때 \\(a + b\\)는?`,
     choices: ["4","5","6","7","8"],
-    correctIndex: 2 // 6
+    correctIndex: 2
   }
 ];
 
 // =============== 유형5 (7문제) ===============
 // "A가 1시간 동안 (두 가지 운동)을 하였다. 10분당 소모 열량과 총 열량이 주어졌을 때
 //  x, y를 10분 단위로 하여 세워지는 연립방정식은 무엇인가?"
-// (이미 검증 완료)
-
 const type5 = [
   {
     question: `유형5(1) <br>
@@ -443,11 +428,8 @@ const type5 = [
 
 // =============== 유형6 (7문제) ===============
 // "다음 중에서 미지수가 2개인 일차방정식이 되지 않는 것은?"
-// 일부 항목의 '항등식'을 수정하여, 딱 1개만 정답이 되도록 조정 완료.
-
 const type6 = [
   {
-    // (1)
     question: `유형6(1) <br>
     다음 중에서 미지수가 2개인 일차방정식이 되지 <strong>않는</strong> 것은?<br>
     (1) \\(3u + 2v = 7\\)<br>
@@ -456,10 +438,9 @@ const type6 = [
     (4) \\(2p + 9q = 0\\)<br>
     (5) \\(7m + n = 10\\)`,
     choices: ["(1)","(2)","(3)","(4)","(5)"],
-    correctIndex: 1 // (2)
+    correctIndex: 1
   },
   {
-    // (2)
     question: `유형6(2) <br>
     다음 중에서 미지수가 2개인 일차방정식이 되지 <strong>않는</strong> 것은?<br>
     (1) \\(2x + 3y = 5\\)<br>
@@ -468,10 +449,9 @@ const type6 = [
     (4) \\(4m + 5n = 1\\)<br>
     (5) \\(u + v = 10\\)`,
     choices: ["(1)","(2)","(3)","(4)","(5)"],
-    correctIndex: 1 // (2)
+    correctIndex: 1
   },
   {
-    // (3) - 수정
     question: `유형6(3) <br>
     다음 중에서 미지수가 2개인 일차방정식이 되지 <strong>않는</strong> 것은?<br>
     (1) \\(x + y = 5\\)<br>
@@ -480,10 +460,9 @@ const type6 = [
     (4) \\(p + q = 0\\)<br>
     (5) \\(5a + 5b = 10\\)`,
     choices: ["(1)","(2)","(3)","(4)","(5)"],
-    correctIndex: 2 // (3)
+    correctIndex: 2
   },
   {
-    // (4)
     question: `유형6(4) <br>
     다음 중에서 미지수가 2개인 일차방정식이 되지 <strong>않는</strong> 것은?<br>
     (1) \\(4x + 2y = 10\\)<br>
@@ -492,10 +471,9 @@ const type6 = [
     (4) \\(3m + 7n = 0\\)<br>
     (5) \\(2p - 5q = 1\\)`,
     choices: ["(1)","(2)","(3)","(4)","(5)"],
-    correctIndex: 1 // (2)
+    correctIndex: 1
   },
   {
-    // (5) - 수정
     question: `유형6(5) <br>
     다음 중에서 미지수가 2개인 일차방정식이 되지 <strong>않는</strong> 것은?<br>
     (1) \\(a + b = 5\\)<br>
@@ -504,10 +482,9 @@ const type6 = [
     (4) \\(m - n = 0\\)<br>
     (5) \\(2u + 5v = 7\\)`,
     choices: ["(1)","(2)","(3)","(4)","(5)"],
-    correctIndex: 2 // (3)
+    correctIndex: 2
   },
   {
-    // (6)
     question: `유형6(6) <br>
     다음 중에서 미지수가 2개인 일차방정식이 되지 <strong>않는</strong> 것은?<br>
     (1) \\(7x + 2y = 0\\)<br>
@@ -516,10 +493,9 @@ const type6 = [
     (4) \\(4u + 4v = 8\\)<br>
     (5) \\(5r - 5s = 1\\)`,
     choices: ["(1)","(2)","(3)","(4)","(5)"],
-    correctIndex: 1 // (2)
+    correctIndex: 1
   },
   {
-    // (7) - 수정
     question: `유형6(7) <br>
     다음 중에서 미지수가 2개인 일차방정식이 되지 <strong>않는</strong> 것은?<br>
     (1) \\(2x + 2y = 4\\)<br>
@@ -528,7 +504,7 @@ const type6 = [
     (4) \\(4p + q = 10\\)<br>
     (5) \\(5u - 5v = 0\\)`,
     choices: ["(1)","(2)","(3)","(4)","(5)"],
-    correctIndex: 1 // (2)
+    correctIndex: 1
   }
 ];
 
@@ -567,10 +543,12 @@ const difficultyScores = {
 };
 // 현재 난이도
 let currentDifficulty = "low";
-// 현재 문제 인덱스
+// 현재 문제 인덱스 (한 바퀴 전용)
 let currentIndex = 0;
-// 문제를 모두 1바퀴 돈 후에는 랜덤으로 계속
+// 이미 한 바퀴 돌았으면 랜덤 출제
 let completedOneRound = false;
+// 현재 화면에 출제된 문제의 인덱스
+let currentQuestionIndex = 0;
 
 // 에너지바 관련
 let energyBarInterval = null;
@@ -633,9 +611,9 @@ function showQuestion() {
   if(!completedOneRound){
     qIndex = currentIndex; 
   } else {
-    // 이미 한 바퀴를 다 돌았다면 랜덤으로
     qIndex = Math.floor(Math.random() * allQuestions.length);
   }
+  currentQuestionIndex = qIndex;  // 현재 문제 인덱스를 저장
   const questionObj = allQuestions[qIndex];
 
   // 화면 구성
@@ -658,15 +636,15 @@ function showQuestion() {
   const choiceContainer = document.getElementById("choice-container");
   choiceContainer.innerHTML = "";
 
-  indices.forEach((idx)=>{
+  indices.forEach((idx) => {
     const choiceLabel = document.createElement("label");
     choiceLabel.style.display = "block";
     const radio = document.createElement("input");
     radio.type = "radio";
     radio.name = "choice";
+    // value에 이미 섞인 원래 인덱스를 저장
     radio.value = idx;
     radio.onclick = ()=> {
-      // 답안 선택 시 제출 버튼 활성화
       document.getElementById("submit-button").disabled = false;
     };
     choiceLabel.appendChild(radio);
@@ -674,7 +652,7 @@ function showQuestion() {
     choiceContainer.appendChild(choiceLabel);
   });
 
-  // 제출/다음 버튼 상태
+  // 제출/다음 버튼 상태 초기화
   document.getElementById("submit-button").disabled = true;
   document.getElementById("next-button").classList.add("hidden");
 
@@ -689,25 +667,25 @@ function showQuestion() {
     document.getElementById("energy-bar-container").classList.add("hidden");
   }
 
-  // 제출 버튼 핸들러 설정
+  // 제출 버튼 핸들러 설정 (현재 보기에 대한 indices는 전달하지 않고, value로 올바른 인덱스를 저장했으므로 그대로 비교)
   const submitBtn = document.getElementById("submit-button");
-  submitBtn.onclick = ()=>{
-    checkAnswer(qIndex, indices);
+  submitBtn.onclick = ()=> {
+    checkAnswer();
   };
 }
 
 // 답안 체크
-function checkAnswer(originalQIndex, shuffledIndices) {
-  const questionObj = allQuestions[originalQIndex];
+function checkAnswer() {
+  const questionObj = allQuestions[currentQuestionIndex];
   const radios = document.getElementsByName("choice");
-  let selectedIndex = -1;
+  let selectedValue = -1;
   for(let r of radios){
     if(r.checked){
-      selectedIndex = parseInt(r.value,10);
+      selectedValue = parseInt(r.value, 10);
       break;
     }
   }
-  if(selectedIndex===-1){
+  if(selectedValue === -1){
     alert("보기를 선택하세요.");
     return;
   }
@@ -715,20 +693,18 @@ function checkAnswer(originalQIndex, shuffledIndices) {
   // 시간 카운트 종료
   if(energyBarInterval) clearInterval(energyBarInterval);
 
-  // 실제 정답 인덱스 vs. 섞인 보기 인덱스
-  const isCorrect = (questionObj.correctIndex === shuffledIndices[selectedIndex]);
+  // 라디오의 value는 원래 인덱스이므로 바로 비교
+  const isCorrect = (selectedValue === questionObj.correctIndex);
 
   if(isCorrect){
     alert("정답입니다!");
     score += difficultyScores[currentDifficulty];
     document.getElementById("score-display").textContent = `점수: ${score}`;
   } else {
-    alert(`오답입니다. 정답은 '${
-      questionObj.choices[questionObj.correctIndex]
-    }' 입니다.`);
+    alert(`오답입니다. 정답은 '${questionObj.choices[questionObj.correctIndex]}' 입니다.`);
     chances--;
     document.getElementById("chance-display").textContent = `남은 기회: ${chances}`;
-    if(chances<=0){
+    if(chances <= 0){
       endGame();
       return;
     }
@@ -742,12 +718,11 @@ function checkAnswer(originalQIndex, shuffledIndices) {
   };
 }
 
-// 다음 문제
+// 다음 문제로 이동
 function moveNextQuestion(){
   if(!completedOneRound){
     currentIndex++;
     if(currentIndex >= allQuestions.length){
-      // 42문제 모두 소진 -> 이후는 랜덤
       completedOneRound = true;
     }
   }
@@ -772,26 +747,21 @@ function resetEnergyBar(){
       clearInterval(energyBarInterval);
       timeOutAction();
     }
-  },1000);
+  }, 1000);
 }
 
-// 시간초과 처리
+// 시간 초과 처리
 function timeOutAction(){
   alert("시간 초과! 오답 처리됩니다.");
   chances--;
   document.getElementById("chance-display").textContent = `남은 기회: ${chances}`;
-  if(chances<=0){
+  if(chances <= 0){
     endGame();
     return;
   }
-  // 정답 공개
-  // 현재 문제는 아직 checkAnswer() 안 거쳤으므로, 
-  // 그냥 현재 인덱스 기준으로 정답 안내 후 넘어감
-  const currentQIndex = (!completedOneRound)
-    ? currentIndex
-    : Math.floor(Math.random() * allQuestions.length);
-  const correctAnswer = allQuestions[currentQIndex].choices[ allQuestions[currentQIndex].correctIndex ];
-  alert(`정답은 '${correctAnswer}' 입니다.`);
+  // 현재 출제된 문제의 정답 공개
+  const questionObj = allQuestions[currentQuestionIndex];
+  alert(`정답은 '${questionObj.choices[questionObj.correctIndex]}' 입니다.`);
 
   document.getElementById("next-button").classList.remove("hidden");
   document.getElementById("submit-button").disabled = true;
@@ -818,8 +788,8 @@ document.getElementById("send-score-button").addEventListener("click", ()=>{
 
 // ============= 유틸 함수 ============= //
 function shuffleArray(array) {
-  for(let i=array.length-1; i>0; i--){
-    const j = Math.floor(Math.random()*(i+1));
+  for(let i = array.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
